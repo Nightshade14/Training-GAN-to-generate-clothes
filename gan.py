@@ -19,7 +19,6 @@ def set_seed(seed):
 
 set_seed(42)
 
-
 # Generator
 class Generator(nn.Module):
     def __init__(self):
