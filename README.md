@@ -29,6 +29,11 @@ This project leverages the power of GANs to generate novel images of clothes. Th
 - **Pre-trained Models:** Includes pre-trained models for quick setup.
 - **Extensive Documentation:** Comprehensive instructions and code comments.
 
+## Dataset
+
+- The model is trained to generate images similar to FashionMNIST data. It generates grayscale images of 28 x 28  size.
+
+
 ## Installation
 
 Clone the repository and install the required dependencies.
