@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import random
 
+
 def set_seed(seed):
     torch.manual_seed(seed)
     torch.cuda.manual_seed(seed)
@@ -17,29 +18,44 @@ def set_seed(seed):
     torch.backends.cudnn.deterministic = True
     torch.backends.cudnn.benchmark = False
 
+
 set_seed(42)
+
 
 # Generator
 class Generator(nn.Module):
     def __init__(self):
         super(Generator, self).__init__()
         self.model = nn.Sequential(
-            nn.Linear(100, 7*7*256, bias=False),
-            nn.BatchNorm1d(7*7*256),
+            nn.Linear(100, 7 * 7 * 256, bias=False),
+            nn.BatchNorm1d(7 * 7 * 256),
             nn.LeakyReLU(0.3, inplace=True),
             nn.Unflatten(1, (256, 7, 7)),
-            nn.ConvTranspose2d(256, 128, kernel_size=5, stride=1, padding=2, bias=False),
+            nn.ConvTranspose2d(
+                256, 128, kernel_size=5, stride=1, padding=2, bias=False
+            ),
             nn.BatchNorm2d(128),
             nn.LeakyReLU(0.3, inplace=True),
-            nn.ConvTranspose2d(128, 64, kernel_size=5, stride=2, padding=2, output_padding=1, bias=False),
+            nn.ConvTranspose2d(
+                128,
+                64,
+                kernel_size=5,
+                stride=2,
+                padding=2,
+                output_padding=1,
+                bias=False,
+            ),
             nn.BatchNorm2d(64),
             nn.LeakyReLU(0.3, inplace=True),
-            nn.ConvTranspose2d(64, 1, kernel_size=5, stride=2, padding=2, output_padding=1, bias=False),
-            nn.Tanh()
+            nn.ConvTranspose2d(
+                64, 1, kernel_size=5, stride=2, padding=2, output_padding=1, bias=False
+            ),
+            nn.Tanh(),
         )
 
     def forward(self, z):
         return self.model(z)
+
 
 # Discriminator
 class Discriminator(nn.Module):
@@ -53,7 +69,7 @@ class Discriminator(nn.Module):
             nn.LeakyReLU(0.3, inplace=True),
             nn.Dropout(0.3),
             nn.Flatten(),
-            nn.Linear(128*7*7, 1)
+            nn.Linear(128 * 7 * 7, 1),
         )
 
     def forward(self, x):
@@ -75,14 +91,14 @@ opt_g = optim.Adam(generator.parameters(), lr=lr)
 opt_d = optim.Adam(discriminator.parameters(), lr=lr)
 
 
-
 # Load FashionMNIST dataset
-transform = transforms.Compose([
-    transforms.ToTensor(),
-    transforms.Normalize([0.5], [0.5])
-])
+transform = transforms.Compose(
+    [transforms.ToTensor(), transforms.Normalize([0.5], [0.5])]
+)
 
-dataset = datasets.FashionMNIST(root='./data', train=True, download=True, transform=transform)
+dataset = datasets.FashionMNIST(
+    root="./data", train=True, download=True, transform=transform
+)
 dataloader = DataLoader(dataset, batch_size=64, shuffle=True)
 
 
@@ -95,7 +111,7 @@ def train_gan(epochs, dataloader):
     for epoch in range(epochs):
         g_loss_epoch = 0.0
         d_loss_epoch = 0.0
-        
+
         for i, (images, _) in enumerate(dataloader):
             images = images.to(device)
             batch_size = images.size(0)
@@ -132,7 +148,9 @@ def train_gan(epochs, dataloader):
         generator_losses.append(g_loss_epoch / len(dataloader))
         discriminator_losses.append(d_loss_epoch / len(dataloader))
 
-        print(f"Epoch [{epoch+1}/{epochs}], Loss D: {loss_d.item():.4f}, Loss G: {loss_g.item():.4f}")
+        print(
+            f"Epoch [{epoch+1}/{epochs}], Loss D: {loss_d.item():.4f}, Loss G: {loss_g.item():.4f}"
+        )
 
         if epoch + 1 in [10, 30, 50]:
             with torch.no_grad():
@@ -143,6 +161,7 @@ def train_gan(epochs, dataloader):
                 plt.show()
 
     return generator_losses, discriminator_losses
-    
+
+
 # Train the GAN for 50 epochs
 generator_losses, discriminator_losses = train_gan(50, dataloader)
