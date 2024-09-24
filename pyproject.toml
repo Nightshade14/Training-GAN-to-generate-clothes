@@ -6,4 +6,5 @@ readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "ruff>=0.6.7",
+    "torch>=2.4.1",
 ]
