@@ -27,7 +27,6 @@ This project leverages the power of GANs to generate novel images of clothes. Th
 - **High-Quality Image Generation:** Generates realistic and diverse clothing images.
 - **Customizable Training:** Easily modify training parameters and architecture.
 - **Pre-trained Models:** Includes pre-trained models for quick setup.
-- **Extensive Documentation:** Comprehensive instructions and code comments.
 
 ## Dataset
 
