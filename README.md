@@ -28,6 +28,10 @@ This project leverages the power of GANs to generate novel images of clothes. Th
 - **Customizable Training:** Easily modify training parameters and architecture.
 - **Pre-trained Models:** Includes pre-trained models for quick setup.
 
+## Model Architecture
+
+- The model has a combination of wide and narrow network, making it efficient on sub-structures of the features and on overall image.
+
 ## Dataset
 
 - The model is trained to generate images similar to FashionMNIST data. It generates grayscale images of 28 x 28  size.
