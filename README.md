@@ -1,6 +1,5 @@
 # GAN Clothes Generator
 
-![Project Banner](path_to_your_image/banner.png)
 
 ## Overview
 
