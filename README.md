@@ -3,7 +3,9 @@
 
 ## Overview
 
-Welcome to the GAN Clothes Generator project! This project aims to generate high-quality images of clothes using Generative Adversarial Networks (GANs). By training a GAN on a dataset of clothing images, we can create realistic and diverse new clothing designs.
+Welcome to the GAN Clothes Generator project! 
+
+This project aims to generate high-quality images of clothes using Convolutional Generative Adversarial Networks (CGANs). By training a GAN on a dataset of clothing images, we can create realistic and diverse new clothing designs.
 
 ## Table of Contents
 
